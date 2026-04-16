@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazing Facts World - Made by Hamdan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .orb-1 { width: 400px; height: 400px; background: #8b5cf6; top: 10%; left: 10%; animation-delay: 0s; }
+        .orb-2 { width: 350px; height: 350px; background: #3b82f6; bottom: 20%; right: 15%; animation-delay: -3s; }
+        .orb-3 { width: 300px; height: 300px; background: #ec4899; top: 50%; left: 50%; animation-delay: -5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(50px, -30px); }
+            50% { transform: translate(30px, 20px); }
+            75% { transform: translate(-20px, 40px); }
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover { transform: scale(1.05); }
+
+        .logo-icon {
+            font-size: 2rem;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, #fff, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Screens */
+        .screen {
+            display: none;
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .screen.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Home Screen */
+        .home-title {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #fff, #a78bfa, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .home-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 30px;
+        }
+
+        /* Mode Selection */
+        .mode-selection {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .mode-btn {
+            padding: 15px 40px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 15px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mode-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, #8b5cf6, #9333ea);
+            border-color: transparent;
+        }
+
+        /* Category Grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .category-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .category-card.earth { background: linear-gradient(135deg, rgba(34,197,94,0.3), rgba(16,185,129,0.3)); }
+        .category-card.space { background: linear-gradient(135deg, rgba(139,92,246,0.3), rgba(147,51,234,0.3)); }
+        .category-card.human { background: linear-gradient(135deg, rgba(249,115,22,0.3), rgba(239,68,68,0.3)); }
+        .category-card.animals { background: linear-gradient(135deg, rgba(234,179,8,0.3), rgba(217,119,6,0.3)); }
+        .category-card.history { background: linear-gradient(135deg, rgba(168,85,247,0.3), rgba(99,102,241,0.3)); }
+        .category-card.science { background: linear-gradient(135deg, rgba(6,182,212,0.3), rgba(59,130,246,0.3)); }
+        .category-card.technology { background: linear-gradient(135deg, rgba(59,130,246,0.3), rgba(99,102,241,0.3)); }
+        .category-card.food { background: linear-gradient(135deg, rgba(239,68,68,0.3), rgba(225,29,72,0.3)); }
+
+        .category-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .category-card:nth-child(2) .category-icon { animation-delay: 0.2s; }
+        .category-card:nth-child(3) .category-icon { animation-delay: 0.4s; }
+        .category-card:nth-child(4) .category-icon { animation-delay: 0.6s; }
+        .category-card:nth-child(5) .category-icon { animation-delay: 0.8s; }
+        .category-card:nth-child(6) .category-icon { animation-delay: 1s; }
+        .category-card:nth-child(7) .category-icon { animation-delay: 1.2s; }
+        .category-card:nth-child(8) .category-icon { animation-delay: 1.4s; }
+
+        .category-name { font-size: 1.3rem; font-weight: bold; margin-bottom: 5px; }
+        .category-count { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+
+        /* Fact Screen */
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .fact-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fact-icon { font-size: 3rem; margin-bottom: 20px; }
+        .fact-text { font-size: 1.5rem; line-height: 1.6; margin-bottom: 20px; }
+        .fact-number { font-size: 0.9rem; color: rgba(255,255,255,0.5); }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .btn:hover { transform: scale(1.05); }
+        .btn:active { transform: scale(0.95); }
+
+        .btn-outline {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-outline:hover { background: rgba(255,255,255,0.2); }
+
+        .btn-primary {
+            color: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-like {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-like.liked {
+            background: rgba(239,68,68,0.3);
+            border-color: rgba(239,68,68,0.5);
+            color: #fca5a5;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            max-width: 400px;
+            margin: 0 auto 20px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .hint { color: rgba(255,255,255,0.5); font-size: 0.85rem; }
+
+        /* ==================== QUIZ STYLES ==================== */
+        
+        /* Quiz Setup Screen */
+        .quiz-setup-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quiz-setup-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .quiz-setup-subtitle {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 30px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .quiz-option {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: left;
+        }
+
+        .quiz-option label {
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .quiz-select {
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .quiz-select option {
+            background: #1a1a2e;
+            color: white;
+        }
+
+        .start-quiz-btn {
+            padding: 15px 50px;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1a1a2e;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .start-quiz-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Quiz Game Screen */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .quiz-score {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            font-size: 1.1rem;
+        }
+
+        .quiz-score-value {
+            font-weight: bold;
+            color: #fbbf24;
+            font-size: 1.3rem;
+        }
+
+        .quiz-timer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(239,68,68,0.2);
+            border-radius: 50px;
+            font-size: 1.1rem;
+        }
+
+        .quiz-timer.warning {
+            animation: pulse-red 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { background: rgba(239,68,68,0.2); }
+            50% { background: rgba(239,68,68,0.5); }
+        }
+
+        .quiz-progress {
+            margin-bottom: 30px;
+        }
+
+        .quiz-progress-text {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .quiz-question-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideInUp 0.4s ease;
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-question {
+            font-size: 1.4rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .quiz-options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .quiz-option-btn {
+            padding: 15px 20px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 15px;
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .quiz-option-btn:hover:not(.disabled) {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.4);
+            transform: translateX(5px);
+        }
+
+        .quiz-option-btn.correct {
+            background: rgba(34,197,94,0.3) !important;
+            border-color: #22c55e !important;
+            animation: correct-pulse 0.5s ease;
+        }
+
+        .quiz-option-btn.wrong {
+            background: rgba(239,68,68,0.3) !important;
+            border-color: #ef4444 !important;
+            animation: shake 0.5s ease;
+        }
+
+        .quiz-option-btn.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        @keyframes correct-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-10px); }
+            80% { transform: translateX(10px); }
+        }
+
+        .option-letter {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .quiz-option-btn.correct .option-letter {
+            background: #22c55e;
+        }
+
+        .quiz-option-btn.wrong .option-letter {
+            background: #ef4444;
+        }
+
+        .feedback-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .feedback-message.correct {
+            background: rgba(34,197,94,0.2);
+            color: #4ade80;
+        }
+
+        .feedback-message.wrong {
+            background: rgba(239,68,68,0.2);
+            color: #fca5a5;
+        }
+
+        .next-question-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #8b5cf6, #9333ea);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .next-question-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(139,92,246,0.4);
+        }
+
+        /* Quiz Results Screen */
+        .results-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: zoomIn 0.5s ease;
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .results-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .results-emoji {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 1s ease infinite;
+        }
+
+        .results-score {
+            font-size: 4rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .results-message {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 30px;
+        }
+
+        .results-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #a78bfa;
+        }
+
+        .stat-label {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+
+        .results-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .result-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .result-btn:hover { transform: scale(1.05); }
+
+        .result-btn.primary {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+        }
+
+        .result-btn.secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            animation: confetti-fall 3s ease-out forwards;
+            z-index: 1000;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Footer */
+        footer {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .made-by {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+        }
+
+        .heart {
+            color: #ef4444;
+            animation: heartbeat 1s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .copyright {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+
+        /* Slide Animations */
+        .slide-in-right { animation: slideInRight 0.3s ease; }
+        .slide-in-left { animation: slideInLeft 0.3s ease; }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .home-title { font-size: 2rem; }
+            .category-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 10px; }
+            .category-card { padding: 20px 15px; }
+            .category-icon { font-size: 2.5rem; }
+            .fact-text { font-size: 1.2rem; }
+            .fact-card { padding: 25px; min-height: 200px; }
+            .btn { padding: 10px 18px; font-size: 0.9rem; }
+            .quiz-question { font-size: 1.2rem; }
+            .quiz-option-btn { font-size: 1rem; padding: 12px 15px; }
+            .results-score { font-size: 3rem; }
+            .mode-selection { flex-direction: column; align-items: center; }
+            .mode-btn { width: 200px; justify-content: center; }
+        }
+
+        @media (max-width: 480px) {
+            .category-grid { grid-template-columns: 1fr; }
+            .home-title { font-size: 1.7rem; }
+            .controls { gap: 8px; }
+            .btn { padding: 10px 15px; font-size: 0.85rem; }
+            .quiz-header { flex-direction: column; }
+            .quiz-setup-card { padding: 25px; }
+            .results-stats { gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo" onclick="goHome()">
+                <span class="logo-icon">✨</span>
+                <h1>Amazing Facts World</h1>
+            </div>
+        </header>
+
+        <main>
+            <!-- ==================== HOME SCREEN ==================== -->
+            <div class="screen active" id="homeScreen">
+                <h2 class="home-title">Discover Amazing Facts</h2>
+                <p class="home-subtitle">Choose how you want to explore 160+ mind-blowing facts!</p>
+                
+                <!-- Mode Selection -->
+                <div class="mode-selection">
+                    <button class="mode-btn active" onclick="setMode('learn')" id="learnModeBtn">
+                        📚 Learn Facts
+                    </button>
+                    <button class="mode-btn" onclick="setMode('quiz')" id="quizModeBtn">
+                        🎯 Take Quiz
+                    </button>
+                </div>
+
+                <div class="category-grid" id="categoryGrid">
+                    <!-- Categories generated by JS -->
+                </div>
+            </div>
+
+            <!-- ==================== FACT SCREEN ==================== -->
+            <div class="screen" id="factScreen">
+                <div class="category-badge" id="categoryBadge">
+                    <span id="badgeIcon">🌍</span>
+                    <span id="badgeName">Earth</span>
+                </div>
+
+                <div class="fact-card" id="factCard">
+                    <div class="fact-icon" id="factIcon">🌍</div>
+                    <p class="fact-text" id="factText">Loading fact...</p>
+                    <p class="fact-number" id="factNumber">Fact 1 of 20</p>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-outline" onclick="prevFact()">← Previous</button>
+                    <button class="btn btn-outline" onclick="randomFact()">🔄 Random</button>
+                    <button class="btn btn-like" id="likeBtn" onclick="toggleLike()">❤️ Like</button>
+                    <button class="btn btn-outline" onclick="shareFact()">📤 Share</button>
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextFact()">Next Fact →</button>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+
+                <p class="hint">Use ← → arrow keys to navigate • Press ESC to go home</p>
+            </div>
+
+            <!-- ==================== QUIZ SETUP SCREEN ==================== -->
+            <div class="screen" id="quizSetupScreen">
+                <div class="quiz-setup-card">
+                    <h2 class="quiz-setup-title">🎯 Quiz Challenge</h2>
+                    <p class="quiz-setup-subtitle">Test your knowledge and earn points!</p>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option">
+                            <label>Select Category</label>
+                            <select class="quiz-select" id="quizCategory">
+                                <option value="all">🎲 All Categories (Mixed)</option>
+                                <option value="earth">🌍 Earth</option>
+                                <option value="space">🚀 Space</option>
+                                <option value="human">🧠 Human Body</option>
+                                <option value="animals">🦁 Animals</option>
+                                <option value="history">🏛️ History</option>
+                                <option value="science">⚗️ Science</option>
+                                <option value="technology">💻 Technology</option>
+                                <option value="food">🍕 Food</option>
+                            </select>
+                        </div>
+                        
+                        <div class="quiz-option">
+                            <label>Number of Questions</label>
+                            <select class="quiz-select" id="quizQuestions">
+                                <option value="5">5 Questions (Quick)</option>
+                                <option value="10" selected>10 Questions (Standard)</option>
+                                <option value="15">15 Questions (Challenge)</option>
+                                <option value="20">20 Questions (Master)</option>
+                            </select>
+                        </div>
+
+                        <div class="quiz-option">
+                            <label>Time Per Question</label>
+                            <select class="quiz-select" id="quizTime">
+                                <option value="10">10 Seconds (Lightning)</option>
+                                <option value="15">15 Seconds (Fast)</option>
+                                <option value="20" selected>20 Seconds (Normal)</option>
+                                <option value="30">30 Seconds (Relaxed)</option>
+                                <option value="0">No Timer</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="start-quiz-btn" onclick="startQuiz()">🚀 Start Quiz</button>
+                </div>
+            </div>
+
+            <!-- ==================== QUIZ GAME SCREEN ==================== -->
+            <div class="screen" id="quizGameScreen">
+                <div class="quiz-header">
+                    <div class="quiz-score">
+                        ⭐ Score: <span class="quiz-score-value" id="currentScore">0</span>
+                    </div>
+                    <div class="quiz-timer" id="timerDisplay">
+                        ⏱️ <span id="timeLeft">20</span>s
+                    </div>
+                </div>
+
+                <div class="quiz-progress">
+                    <p class="quiz-progress-text">Question <span id="currentQNum">1</span> of <span id="totalQNum">10</span></p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="quizProgressFill" style="width: 10%; background: linear-gradient(90deg, #fbbf24, #f59e0b);"></div>
+                    </div>
+                </div>
+
+                <div class="quiz-question-card" id="questionCard">
+                    <p class="quiz-question" id="quizQuestion">Question goes here?</p>
+                    <div class="quiz-options-grid" id="quizOptions">
+                        <!-- Options generated by JS -->
+                    </div>
+                    <div id="feedbackArea"></div>
+                </div>
+            </div>
+
+            <!-- ==================== QUIZ RESULTS SCREEN ==================== -->
+            <div class="screen" id="quizResultsScreen">
+                <div class="results-card">
+                    <div class="results-emoji" id="resultEmoji">🏆</div>
+                    <h2 class="results-title" id="resultTitle">Quiz Complete!</h2>
+                    <div class="results-score" id="finalScore">8/10</div>
+                    <p class="results-message" id="resultMessage">Great job! You know your facts!</p>
+                    
+                    <div class="results-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="correctCount">8</div>
+                            <div class="stat-label">Correct</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="wrongCount">2</div>
+                            <div class="stat-label">Wrong</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="accuracyPercent">80%</div>
+                            <div class="stat-label">Accuracy</div>
+                        </div>
+                    </div>
+
+                    <div class="results-buttons">
+                        <button class="result-btn primary" onclick="restartQuiz()">🔄 Try Again</button>
+                        <button class="result-btn secondary" onclick="goHome()">🏠 Home</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="made-by">
+                <span class="heart">❤️</span>
+                <span>Made with love by Hamdan</span>
+                <span class="heart">❤️</span>
+            </div>
+            <p class="copyright">© 2025 Amazing Facts World. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // ==================== FACTS DATA ====================
+        const categories = [
+            {
+                id: "earth",
+                name: "Earth",
+                icon: "🌍",
+                color: "#22c55e",
+                gradient: "linear-gradient(90deg, #22c55e, #10b981)",
+                facts: [
+                    "Earth is the only known planet to support life.",
+                    "About 71% of Earth's surface is covered by water.",
+                    "Earth's core is as hot as the surface of the Sun.",
+                    "The Amazon rainforest produces 20% of the world's oxygen.",
+                    "Earth has over 8 million species of living things.",
+                    "The Great Barrier Reef is the largest living structure on Earth.",
+                    "Earth's magnetic field protects us from harmful solar radiation.",
+                    "The deepest point on Earth is the Mariana Trench, about 11,000 meters deep.",
+                    "Earth is approximately 4.54 billion years old.",
+                    "The Sahara Desert is larger than the entire United States.",
+                    "Lightning strikes Earth about 100 times every second.",
+                    "The Amazon River carries 20% of all river water on Earth.",
+                    "Earth's atmosphere is composed of 78% nitrogen and 21% oxygen.",
+                    "Mount Everest grows about 4 millimeters taller every year.",
+                    "There are more trees on Earth than stars in the Milky Way galaxy.",
+                    "The Pacific Ocean is wider than the Moon.",
+                    "Earth rotates at about 1,600 km/h at the equator.",
+                    "Antarctica contains about 70% of Earth's fresh water.",
+                    "The Grand Canyon is visible from space.",
+                    "Earth has over 1,500 active volcanoes."
+                ]
+            },
+            {
+                id: "space",
+                name: "Space",
+                icon: "🚀",
+                color: "#8b5cf6",
+                gradient: "linear-gradient(90deg, #8b5cf6, #9333ea)",
+                facts: [
+                    "A day on Venus is longer than its year.",
+                    "There are more stars in the universe than grains of sand on Earth.",
+                    "Neutron stars can spin at up to 600 rotations per second.",
+                    "The Sun makes up 99.86% of the mass in our solar system.",
+                    "One million Earths could fit inside the Sun.",
+                    "The footprints on the Moon will last for millions of years.",
+                    "Jupiter has 95 known moons.",
+                    "A black hole's gravity is so strong that not even light can escape.",
+                    "The Milky Way galaxy is about 100,000 light-years across.",
+                    "Saturn's rings are made mostly of ice particles.",
+                    "The largest known star, UY Scuti, is 1,700 times bigger than our Sun.",
+                    "Space is completely silent because there is no air to carry sound.",
+                    "The International Space Station travels at 28,000 km/h.",
+                    "A year on Mercury is just 88 Earth days.",
+                    "There is a planet made of diamonds, called 55 Cancri e.",
+                    "The Andromeda Galaxy is heading towards us at 110 km/second.",
+                    "Astronauts grow taller in space due to lack of gravity.",
+                    "The observable universe is about 93 billion light-years across.",
+                    "Mars has the largest volcano in the solar system, Olympus Mons.",
+                    "The Hubble Space Telescope can see galaxies 13.4 billion light-years away."
+                ]
+            },
+            {
+                id: "human",
+                name: "Human Body",
+                icon: "🧠",
+                color: "#f97316",
+                gradient: "linear-gradient(90deg, #f97316, #ef4444)",
+                facts: [
+                    "The human brain contains about 86 billion neurons.",
+                    "Your heart beats about 100,000 times per day.",
+                    "The human body has 206 bones.",
+                    "Your blood travels 19,000 km through your body daily.",
+                    "The human eye can distinguish about 10 million colors.",
+                    "Your skin is your largest organ, covering about 2 square meters.",
+                    "The human body produces about 1 liter of saliva daily.",
+                    "Your bones are stronger than steel, gram for gram.",
+                    "The human nose can detect over 1 trillion different scents.",
+                    "Your DNA would stretch to the Sun and back 60 times if uncoiled.",
+                    "The human body has about 37 trillion cells.",
+                    "Your fingerprints are unique, even identical twins have different ones.",
+                    "The human heart pumps about 7,500 liters of blood daily.",
+                    "Your brain uses 20% of your body's total energy.",
+                    "The human body can survive without food for about 3 weeks.",
+                    "Your stomach acid is strong enough to dissolve metal.",
+                    "The human body grows about 6 km of hair in a lifetime.",
+                    "Your eyes blink about 20,000 times per day.",
+                    "The human liver can regenerate itself completely.",
+                    "Your body produces 25 million new cells every second."
+                ]
+            },
+            {
+                id: "animals",
+                name: "Animals",
+                icon: "🦁",
+                color: "#eab308",
+                gradient: "linear-gradient(90deg, #eab308, #d97706)",
+                facts: [
+                    "Octopuses have three hearts and blue blood.",
+                    "A group of flamingos is called a 'flamboyance'.",
+                    "Honey never spoils - 3,000-year-old honey is still edible.",
+                    "Elephants are the only mammals that can't jump.",
+                    "A blue whale's heart is the size of a small car.",
+                    "Cows have best friends and get stressed when separated.",
+                    "Sloths can hold their breath longer than dolphins - up to 40 minutes.",
+                    "Penguins propose to their mates with a pebble.",
+                    "Dolphins have names for each other using signature whistles.",
+                    "A giraffe's tongue is about 20 inches long and blue-black in color.",
+                    "Koalas sleep up to 22 hours a day.",
+                    "The mantis shrimp punches with the force of a bullet.",
+                    "Butterflies taste with their feet.",
+                    "A snail can sleep for three years.",
+                    "Hummingbirds are the only birds that can fly backwards.",
+                    "Axolotls can regenerate their entire limbs.",
+                    "Crows are as smart as a 7-year-old human child.",
+                    "A flea can jump 350 times its body length.",
+                    "Polar bears have black skin under their white fur.",
+                    "The pistol shrimp creates a bubble hotter than the Sun's surface."
+                ]
+            },
+            {
+                id: "history",
+                name: "History",
+                icon: "🏛️",
+                color: "#a855f7",
+                gradient: "linear-gradient(90deg, #a855f7, #6366f1)",
+                facts: [
+                    "Cleopatra lived closer in time to the Moon landing than to the building of the Great Pyramid.",
+                    "The shortest war in history lasted only 38 minutes.",
+                    "Napoleon was once attacked by rabbits.",
+                    "The Great Wall of China is not visible from space with the naked eye.",
+                    "Albert Einstein was offered the presidency of Israel in 1952.",
+                    "The ancient Egyptians used honey as a form of currency.",
+                    "Vikings used the bones of slain animals when smithing new weapons.",
+                    "The first computer bug was an actual moth found in a computer in 1947.",
+                    "Julius Caesar was kidnapped by pirates and demanded a higher ransom.",
+                    "The Eiffel Tower can grow taller in summer due to heat expansion.",
+                    "Ancient Romans used urine as mouthwash.",
+                    "The Titanic's chief baker survived by drinking whiskey.",
+                    "Napoleon was of average height for his time.",
+                    "The first oranges weren't orange - they were green.",
+                    "Oxford University is older than the Aztec Empire.",
+                    "The Leaning Tower of Pisa was never straight.",
+                    "Ancient Greek statues were originally painted in bright colors.",
+                    "The longest reigning monarch was Louis XIV of France - 72 years.",
+                    "The first email was sent in 1971.",
+                    "The Great Fire of London destroyed over 13,000 houses but killed only 6 people."
+                ]
+            },
+            {
+                id: "science",
+                name: "Science",
+                icon: "⚗️",
+                color: "#06b6d4",
+                gradient: "linear-gradient(90deg, #06b6d4, #3b82f6)",
+                facts: [
+                    "Water can boil and freeze at the same time in a vacuum.",
+                    "Bananas are naturally radioactive due to their potassium content.",
+                    "A teaspoonful of neutron star would weigh 6 billion tons.",
+                    "Hot water freezes faster than cold water - the Mpemba effect.",
+                    "The speed of light is 299,792,458 meters per second.",
+                    "DNA was first discovered in 1869 by Friedrich Miescher.",
+                    "The average cloud weighs about 1.1 million pounds.",
+                    "Glass is actually a liquid that flows very slowly.",
+                    "A day on Earth is getting longer by 1.7 milliseconds per century.",
+                    "The human body contains enough carbon to make 900 pencils.",
+                    "Sound travels 4 times faster in water than in air.",
+                    "The coldest temperature ever recorded is -273.15°C, absolute zero.",
+                    "Helium becomes a superfluid at temperatures near absolute zero.",
+                    "The average lightning bolt contains enough energy to toast 100,000 slices of bread.",
+                    "Gold is edible and has been used in food for thousands of years.",
+                    "A single bolt of lightning is five times hotter than the Sun's surface.",
+                    "The human brain generates about 23 watts of power.",
+                    "Water is the only substance that exists naturally in all three states on Earth.",
+                    "The speed of sound is 343 meters per second in air at room temperature.",
+                    "Astronauts can't burp in space due to lack of gravity."
+                ]
+            },
+            {
+                id: "technology",
+                name: "Technology",
+                icon: "💻",
+                color: "#3b82f6",
+                gradient: "linear-gradient(90deg, #3b82f6, #6366f1)",
+                facts: [
+                    "The first computer mouse was made of wood in 1964.",
+                    "The first 1GB hard drive was announced in 1980 and weighed 550 pounds.",
+                    "More than 90% of the world's currency is digital.",
+                    "The first domain name ever registered was Symbolics.com in 1985.",
+                    "Google processes over 8.5 billion searches per day.",
+                    "The first smartphone was IBM's Simon in 1994.",
+                    "There are over 1.9 billion websites on the internet.",
+                    "The QWERTY keyboard was designed to slow down typing.",
+                    "The first video on YouTube was uploaded in April 2005.",
+                    "Bitcoin was created in 2009 by an unknown person using the name Satoshi Nakamoto.",
+                    "The first computer virus was created in 1983.",
+                    "Over 500 hours of video are uploaded to YouTube every minute.",
+                    "The first text message was sent in 1992.",
+                    "There are more mobile phones than people in the world.",
+                    "The first iPhone was released in 2007.",
+                    "Email was invented before the World Wide Web.",
+                    "The first computer game was created in 1962.",
+                    "Over 3.8 billion people use social media worldwide.",
+                    "The first Wi-Fi network was launched in 1997.",
+                    "Amazon started as an online bookstore in 1994."
+                ]
+            },
+            {
+                id: "food",
+                name: "Food",
+                icon: "🍕",
+                color: "#ef4444",
+                gradient: "linear-gradient(90deg, #ef4444, #e11d48)",
+                facts: [
+                    "Honey is the only food that never expires.",
+                    "Apples float in water because they are 25% air.",
+                    "Peanuts are not nuts - they are legumes.",
+                    "Chocolate was once used as currency by the Aztecs.",
+                    "Carrots were originally purple, not orange.",
+                    "Tomatoes are fruits, not vegetables.",
+                    "The most expensive pizza in the world costs $12,000.",
+                    "Ketchup was once sold as medicine in the 1830s.",
+                    "Strawberries are the only fruit with seeds on the outside.",
+                    "Potatoes can absorb and reflect Wi-Fi signals.",
+                    "The most stolen food in the world is cheese.",
+                    "Bananas are berries, but strawberries are not.",
+                    "Pound cake got its name from the original recipe using a pound of each ingredient.",
+                    "The fear of cooking is called mageirocophobia.",
+                    "White chocolate isn't actually chocolate.",
+                    "The most expensive spice in the world is saffron.",
+                    "Fortune cookies were invented in America, not China.",
+                    "Avocados are toxic to birds.",
+                    "The world's hottest pepper is the Carolina Reaper.",
+                    "McDonald's sells 75 hamburgers every second."
+                ]
+            }
+        ];
+
+        // ==================== STATE VARIABLES ====================
+        let currentMode = 'learn';
+        let currentCategory = null;
+        let currentFactIndex = 0;
+        let likedFacts = new Set();
+        let slideDirection = 'right';
+
+        // Quiz State
+        let quizQuestions = [];
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let quizTimer = null;
+        let timeLeft = 20;
+        let hasAnswered = false;
+
+        // ==================== INITIALIZATION ====================
+        function init() {
+            renderCategories();
+            setupKeyboardNavigation();
+        }
+
+        // ==================== MODE SELECTION ====================
+        function setMode(mode) {
+            currentMode = mode;
+            document.getElementById('learnModeBtn').classList.toggle('active', mode === 'learn');
+            document.getElementById('quizModeBtn').classList.toggle('active', mode === 'quiz');
+        }
+
+        // ==================== CATEGORY & FACTS ====================
+        function renderCategories() {
+            const grid = document.getElementById('categoryGrid');
+            grid.innerHTML = categories.map(cat => `
+                <div class="category-card ${cat.id}" onclick="selectCategory('${cat.id}')">
+                    <div class="category-icon">${cat.icon}</div>
+                    <div class="category-name">${cat.name}</div>
+                    <div class="category-count">${cat.facts.length} facts</div>
+                </div>
+            `).join('');
+        }
+
+        function selectCategory(categoryId) {
+            if (currentMode === 'quiz') {
+                // Go to quiz setup with pre-selected category
+                document.getElementById('quizCategory').value = categoryId;
+                showScreen('quizSetupScreen');
+            } else {
+                // Go to learn mode
+                currentCategory = categories.find(c => c.id === categoryId);
+                currentFactIndex = 0;
+                showScreen('factScreen');
+                updateFactDisplay();
+            }
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function goHome() {
+            showScreen('homeScreen');
+            currentCategory = null;
+            stopQuizTimer();
+        }
+
+        function updateFactDisplay() {
+            if (!currentCategory) return;
+
+            const fact = currentCategory.facts[currentFactIndex];
+            const factCard = document.getElementById('factCard');
+            
+            document.getElementById('categoryBadge').style.background = currentCategory.gradient;
+            document.getElementById('badgeIcon').textContent = currentCategory.icon;
+            document.getElementById('badgeName').textContent = currentCategory.name;
+            
+            factCard.className = 'fact-card ' + (slideDirection === 'right' ? 'slide-in-right' : 'slide-in-left');
+            document.getElementById('factIcon').textContent = currentCategory.icon;
+            document.getElementById('factText').textContent = fact;
+            document.getElementById('factNumber').textContent = `Fact ${currentFactIndex + 1} of ${currentCategory.facts.length}`;
+            
+            const progress = ((currentFactIndex + 1) / currentCategory.facts.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressFill').style.background = currentCategory.gradient;
+            document.getElementById('nextBtn').style.background = currentCategory.gradient;
+            
+            const likeBtn = document.getElementById('likeBtn');
+            const factId = `${currentCategory.id}-${currentFactIndex}`;
+            likeBtn.classList.toggle('liked', likedFacts.has(factId));
+
+            setTimeout(() => {
+                factCard.classList.remove('slide-in-right', 'slide-in-left');
+            }, 300);
+        }
+
+        function nextFact() {
+            if (!currentCategory) return;
+            slideDirection = 'right';
+            currentFactIndex = (currentFactIndex + 1) % currentCategory.facts.length;
+            updateFactDisplay();
+        }
+
+        function prevFact() {
+            if (!currentCategory) return;
+            slideDirection = 'left';
+            currentFactIndex = currentFactIndex === 0 ? currentCategory.facts.length - 1 : currentFactIndex - 1;
+            updateFactDisplay();
+        }
+
+        function randomFact() {
+            if (!currentCategory) return;
+            const newIndex = Math.floor(Math.random() * currentCategory.facts.length);
+            slideDirection = newIndex > currentFactIndex ? 'right' : 'left';
+            currentFactIndex = newIndex;
+            updateFactDisplay();
+        }
+
+        function toggleLike() {
+            if (!currentCategory) return;
+            const factId = `${currentCategory.id}-${currentFactIndex}`;
+            
+            if (likedFacts.has(factId)) {
+                likedFacts.delete(factId);
+            } else {
+                likedFacts.add(factId);
+            }
+            
+            updateFactDisplay();
+        }
+
+        function shareFact() {
+            if (!currentCategory) return;
+            const fact = currentCategory.facts[currentFactIndex];
+            const text = `${fact} - Amazing Fact from ${currentCategory.name}!`;
+            
+            if (navigator.share) {
+                navigator.share({ title: 'Amazing Facts World', text: text }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(text).then(() => alert('Fact copied to clipboard!'));
+            }
+        }
+
+        // ==================== QUIZ FUNCTIONS ====================
+        
+        function generateQuizQuestions(categoryId, numQuestions) {
+            let availableFacts = [];
+            
+            if (categoryId === 'all') {
+                categories.forEach(cat => {
+                    cat.facts.forEach((fact, idx) => {
+                        availableFacts.push({ fact, category: cat, factIndex: idx });
+                    });
+                });
+            } else {
+                const cat = categories.find(c => c.id === categoryId);
+                cat.facts.forEach((fact, idx) => {
+                    availableFacts.push({ fact, category: cat, factIndex: idx });
+                });
+            }
+            
+            // Shuffle and select
+            availableFacts = shuffleArray(availableFacts);
+            const selected = availableFacts.slice(0, Math.min(numQuestions, availableFacts.length));
+            
+            // Generate questions with options
+            return selected.map(item => {
+                const question = generateQuestionFromFact(item.fact, item.category);
+                return {
+                    ...question,
+                    category: item.category
+                };
+            });
+        }
+
+        function generateQuestionFromFact(fact, category) {
+            // Get wrong options from other facts in same category
+            const otherFacts = category.facts.filter(f => f !== fact);
+            const wrongOptions = shuffleArray([...otherFacts]).slice(0, 3);
+            
+            const options = [
+                { text: fact, correct: true },
+                ...wrongOptions.map(f => ({ text: f, correct: false }))
+            ];
+            
+            // Create question by modifying the fact
+            const questionText = createQuestionText(fact, category.name);
+            
+            return {
+                question: questionText,
+                options: shuffleArray(options)
+            };
+        }
+
+        function createQuestionText(fact, categoryName) {
+            // Create different types of questions based on the fact
+            const questionTemplates = [
+                `Which of the following is TRUE about ${categoryName}?`,
+                `Select the correct statement:`,
+                `Which fact is accurate?`,
+                `What is true about this topic?`
+            ];
+            
+            return questionTemplates[Math.floor(Math.random() * questionTemplates.length)];
+        }
+
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function startQuiz() {
+            const categoryId = document.getElementById('quizCategory').value;
+            const numQuestions = parseInt(document.getElementById('quizQuestions').value);
+            const timePerQuestion = parseInt(document.getElementById('quizTime').value);
+            
+            quizQuestions = generateQuizQuestions(categoryId, numQuestions);
+            currentQuizIndex = 0;
+            quizScore = 0;
+            timeLeft = timePerQuestion;
+            
+            document.getElementById('totalQNum').textContent = quizQuestions.length;
+            document.getElementById('currentScore').textContent = '0';
+            
+            showScreen('quizGameScreen');
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            hasAnswered = false;
+            const question = quizQuestions[currentQuizIndex];
+            
+            document.getElementById('currentQNum').textContent = currentQuizIndex + 1;
+            document.getElementById('quizQuestion').textContent = question.question;
+            
+            // Update progress bar
+            const progress = ((currentQuizIndex + 1) / quizQuestions.length) * 100;
+            document.getElementById('quizProgressFill').style.width = progress + '%';
+            
+            // Render options
+            const optionsHtml = question.options.map((opt, idx) => `
+                <button class="quiz-option-btn" onclick="selectAnswer(${idx})" data-index="${idx}">
+                    <span class="option-letter">${String.fromCharCode(65 + idx)}</span>
+                    <span>${opt.text}</span>
+                </button>
+            `).join('');
+            
+            document.getElementById('quizOptions').innerHTML = optionsHtml;
+            document.getElementById('feedbackArea').innerHTML = '';
+            
+            // Start timer if enabled
+            const timerEnabled = parseInt(document.getElementById('quizTime').value) > 0;
+            if (timerEnabled) {
+                timeLeft = parseInt(document.getElementById('quizTime').value);
+                startQuizTimer();
+            } else {
+                document.getElementById('timerDisplay').style.display = 'none';
+            }
+        }
+
+        function startQuizTimer() {
+            stopQuizTimer();
+            document.getElementById('timerDisplay').style.display = 'flex';
+            document.getElementById('timerDisplay').classList.remove('warning');
+            
+            quizTimer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timeLeft').textContent = timeLeft;
+                
+                if (timeLeft <= 5) {
+                    document.getElementById('timerDisplay').classList.add('warning');
+                }
+                
+                if (timeLeft <= 0) {
+                    stopQuizTimer();
+                    timeUp();
+                }
+            }, 1000);
+        }
+
+        function stopQuizTimer() {
+            if (quizTimer) {
+                clearInterval(quizTimer);
+                quizTimer = null;
+            }
+        }
+
+        function timeUp() {
+            if (hasAnswered) return;
+            hasAnswered = true;
+            
+            // Show correct answer
+            const buttons = document.querySelectorAll('.quiz-option-btn');
+            buttons.forEach((btn, idx) => {
+                btn.classList.add('disabled');
+                if (quizQuestions[currentQuizIndex].options[idx].correct) {
+                    btn.classList.add('correct');
+                }
+            });
+            
+            document.getElementById('feedbackArea').innerHTML = `
+                <div class="feedback-message wrong">⏰ Time's up! The correct answer is highlighted.</div>
+                <button class="next-question-btn" onclick="nextQuizQuestion()">Next Question →</button>
+            `;
+        }
+
+        function selectAnswer(index) {
+            if (hasAnswered) return;
+            hasAnswered = true;
+            stopQuizTimer();
+            
+            const isCorrect = quizQuestions[currentQuizIndex].options[index].correct;
+            const buttons = document.querySelectorAll('.quiz-option-btn');
+            
+            buttons.forEach((btn, idx) => {
+                btn.classList.add('disabled');
+                if (quizQuestions[currentQuizIndex].options[idx].correct) {
+                    btn.classList.add('correct');
+                }
+            });
+            
+            if (isCorrect) {
+                quizScore++;
+                document.getElementById('currentScore').textContent = quizScore;
+                buttons[index].classList.add('correct');
+                
+                document.getElementById('feedbackArea').innerHTML = `
+                    <div class="feedback-message correct">✅ Correct! Well done!</div>
+                    <button class="next-question-btn" onclick="nextQuizQuestion()">Next Question →</button>
+                `;
+            } else {
+                buttons[index].classList.add('wrong');
+                
+                document.getElementById('feedbackArea').innerHTML = `
+                    <div class="feedback-message wrong">❌ Wrong! The correct answer is highlighted.</div>
+                    <button class="next-question-btn" onclick="nextQuizQuestion()">Next Question →</button>
+                `;
+            }
+        }
+
+        function nextQuizQuestion() {
+            currentQuizIndex++;
+            
+            if (currentQuizIndex >= quizQuestions.length) {
+                showQuizResults();
+            } else {
+                showQuizQuestion();
+            }
+        }
+
+        function showQuizResults() {
+            showScreen('quizResultsScreen');
+            
+            const total = quizQuestions.length;
+            const correct = quizScore;
+            const wrong = total - correct;
+            const accuracy = Math.round((correct / total) * 100);
+            
+            document.getElementById('finalScore').textContent = `${correct}/${total}`;
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('wrongCount').textContent = wrong;
+            document.getElementById('accuracyPercent').textContent = `${accuracy}%`;
+            
+            // Set message and emoji based on score
+            let emoji, title, message;
+            if (accuracy >= 90) {
+                emoji = '🏆';
+                title = 'Quiz Master!';
+                message = 'Incredible! You are a facts expert!';
+                createConfetti();
+            } else if (accuracy >= 70) {
+                emoji = '🌟';
+                title = 'Great Job!';
+                message = 'You know your stuff! Well done!';
+                createConfetti();
+            } else if (accuracy >= 50) {
+                emoji = '👍';
+                title = 'Good Effort!';
+                message = 'Not bad! Keep learning more facts!';
+            } else {
+                emoji = '📚';
+                title = 'Keep Practicing!';
+                message = 'Study more facts and try again!';
+            }
+            
+            document.getElementById('resultEmoji').textContent = emoji;
+            document.getElementById('resultTitle').textContent = title;
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function createConfetti() {
+            const colors = ['#fbbf24', '#22c55e', '#3b82f6', '#ef4444', '#a855f7', '#ec4899'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 50);
+            }
+        }
+
+        function restartQuiz() {
+            showScreen('quizSetupScreen');
+        }
+
+        // ==================== KEYBOARD NAVIGATION ====================
+        function setupKeyboardNavigation() {
+            document.addEventListener('keydown', (e) => {
+                const factScreen = document.getElementById('factScreen');
+                if (!factScreen.classList.contains('active')) return;
+                
+                if (e.key === 'ArrowRight') nextFact();
+                else if (e.key === 'ArrowLeft') prevFact();
+                else if (e.key === 'Escape') goHome();
+            });
+        }
+
+        // ==================== START ====================
+        init();
+    </script>
+</body>
+</html>
