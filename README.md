@@ -52,9 +52,10 @@ FactVerse is a modern, interactive web application that allows users to discover
 
 ---
 
-## 📸 Screenshots
+## 📸 Screenshots Of Website
 
-*(Add your project screenshots here)*
+<img width="749" height="607" alt="Image" src="https://github.com/user-attachments/assets/430e792b-446b-4894-a37b-19245419b5ad" />
+
 
 ---
 
