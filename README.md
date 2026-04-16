@@ -77,7 +77,6 @@ If you like this project:
 📢 Share it
 📜 License
 
-This project is open-source and available under the MIT License.
 
 
 ---
