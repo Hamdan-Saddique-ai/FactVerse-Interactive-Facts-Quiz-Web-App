@@ -59,15 +59,15 @@ FactVerse is a modern, interactive web application that allows users to discover
 ---
 
 
-💡 Future Improvements
-🔐 User login system
-🏆 Leaderboard system
-🌐 API-based dynamic facts
-🤖 AI-powered quiz generation
-📱 Mobile app version
-👨‍💻 Author
+## 💡 Future Improvements
+🔐 User login system  
+🏆 Leaderboard system  
+🌐 API-based dynamic facts  
+🤖 AI-powered quiz generation  
+📱 Mobile app version  
+## 👨‍💻 Author  
 
-Hamdan Saddique
+**Hamdan Saddique**
 ⭐ Support
 
 If you like this project:
