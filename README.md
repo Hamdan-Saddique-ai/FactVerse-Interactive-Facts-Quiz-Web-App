@@ -57,6 +57,8 @@ FactVerse is a modern, interactive web application that allows users to discover
 <img width="749" height="607" alt="Image" src="https://github.com/user-attachments/assets/430e792b-446b-4894-a37b-19245419b5ad" />
 
 <img width="667" height="339" alt="Image" src="https://github.com/user-attachments/assets/4a1c4d1f-7c2c-4e84-8a58-db1643bcfeec" />
+<img width="673" height="337" alt="Image" src="https://github.com/user-attachments/assets/a443316e-1ad7-416b-9869-9ebe92c020fc" />
+
 
 ---
 
@@ -77,7 +79,6 @@ If you like this project:
 ⭐ Star this repo
 🍴 Fork it
 📢 Share it
-📜 License
 
 
 
