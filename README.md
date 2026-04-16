@@ -1,4 +1,5 @@
 # 🌍 FactVerse – Interactive Facts & Quiz Web App
+<img width="749" height="607" alt="Image" src="https://github.com/user-attachments/assets/430e792b-446b-4894-a37b-19245419b5ad" />
 
 > 🚀 Explore. Learn. Challenge Yourself.
 
@@ -53,9 +54,9 @@ FactVerse is a modern, interactive web application that allows users to discover
 ---
 
 ## 📸 Screenshots Of Website
-
 <img width="749" height="607" alt="Image" src="https://github.com/user-attachments/assets/430e792b-446b-4894-a37b-19245419b5ad" />
 
+<img width="667" height="339" alt="Image" src="https://github.com/user-attachments/assets/4a1c4d1f-7c2c-4e84-8a58-db1643bcfeec" />
 
 ---
 
